@@ -1,8 +1,3 @@
-/*  Salman Faris */
-/*Farissalmannbr@gmail.com*/
-/*7736626642*/
-
-
 
 
 byte val;
