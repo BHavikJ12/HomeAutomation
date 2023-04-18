@@ -33,9 +33,9 @@ void loop()
   Blynk.run();
   //Control relay channel 1 based on value of variable 'Light'
   if(light == 1){
-    digitalWrite(IN1, HIGH);  
+    digitalWrite(IN, HIGH);  
   }else{
-    digitalWrite(IN1, LOW);  
+    digitalWrite(IN, LOW);  
   }
 
 }
