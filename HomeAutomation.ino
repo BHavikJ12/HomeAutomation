@@ -1,73 +1,41 @@
+#define BLYNK_USE_DIRECT_CONNECT
+#include <SoftwareSerial.h>
+SoftwareSerial BT(0, 1); // RX, TX
 
+#define BLYNK_PRINT BT
+#include <BlynkSimpleSerialBLE.h>
 
-byte val;
+const int IN = 6;// Input for channel 1(Light)
+int light;
+
+// You should get Auth Token in the Blynk App
+char auth[] = "YourAuthToken"; //Place the authentication token you got from the e-mail.
 
 void setup()
 {
-  Serial.begin(9600);//Change the baud rate value depending on the default baud rate of your bluetooth module, for Bluesmirf-115200 and for JY-MCU-9600
+  BT.begin(38400); //For HC-05 default speed is 38400
+  pinMode(IN, OUTPUT);
   
-  pinMode(2, OUTPUT);//Light1 pin
-  pinMode(3, OUTPUT);//Light2 pin
-  pinMode(4, OUTPUT);//Light3 pin
-  pinMode(5, OUTPUT);//AC pin
-  pinMode(6, OUTPUT);//Door Lock
+  // Blynk will work through Serial
+  // Do not read or write this serial manually in your sketch
+  Serial.begin(38400);
+  Blynk.begin(Serial, auth);
+
+  digitalWrite(IN, LOW);
+}
+
+BLYNK_WRITE(V0){
+  light = param.asInt();
 }
 
 void loop()
 {
- int a=0;
- if(Serial.available())
-  {
-    val=Serial.read();
-    Serial.println(int(val));//Display received value on Serial Monitor
-
-if(int(val)==49)//Turn Light1 ON
-   digitalWrite(2,HIGH);
-
- else if (int(val)==50)//Turn Light1 OFF
-         digitalWrite(2,LOW);
-
-if(int(val)==51)//Turn Light2 ON
-   digitalWrite(3,HIGH);
-   
- else if(int(val)==52)//Turn Light2 OFF
-      digitalWrite(3,LOW);
-      
-if(int(val)==53)//Turn Light3 ON
-   digitalWrite(4,HIGH);
-
- else if(int(val)==54)//Turn Light3 OFF
-       digitalWrite(4,LOW);
-       
-if(int(val)==55)//Turn AC ON
-   digitalWrite(5,HIGH);
-   
- else if(int(val)==56)//Turn AC OFF
-       digitalWrite(5,LOW);
-       
-if(int(val)==57)//Lock the DOOR
-   digitalWrite(6,HIGH);
-   
- else if(int(val)==48)//Unlock the DOOR
-       digitalWrite(6,LOW);
+  Blynk.run();
+  //Control relay channel 1 based on value of variable 'Light'
+  if(light == 1){
+    digitalWrite(IN1, HIGH);  
+  }else{
+    digitalWrite(IN1, LOW);  
+  }
 
 }
-}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
