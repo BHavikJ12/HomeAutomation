@@ -5,11 +5,11 @@ SoftwareSerial BT(0, 1); // RX, TX
 #define BLYNK_PRINT BT
 #include <BlynkSimpleSerialBLE.h>
 
-const int IN = 6;// Input for channel 1(Light)
+const int IN = 6;// Input for Light
 int light;
 
 // You should get Auth Token in the Blynk App
-char auth[] = "YourAuthToken"; //Place the authentication token you got from the e-mail.
+char auth[] = "*******"; //Place the authentication token you got from the e-mail.
 
 void setup()
 {
